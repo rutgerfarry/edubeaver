@@ -12,10 +12,15 @@ function getLinks (url, callback) {
 			$("td > font > a").each(function (i, element) {
 				var text = $(this).text();
 				var link = $(this).attr('href');
-				console.log(text + ': ' + link);
-				info.push({text: link});
+				info.push({
+					'text': text,
+					'link': link
+				});
 			});
-			info.sort();
+			info.sort(function (a, b) {
+				return a.text > b.text ? 1 : -1;
+			});
+			console.log(info);
 			return info;
 		}
 	});
