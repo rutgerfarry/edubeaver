@@ -40,8 +40,8 @@ function getClassInfo (baseURL, classURLs) {
 			parseTable($);
 			console.log('title: ' + title);
 			console.log('abbr: ' + abbr);
-			// console.log('credits: ' + credits);
-			// console.log('desc: ' + desc);
+			console.log('credits: ' + credits);
+			console.log('desc: ' + desc);
 		}
 	});
 }
@@ -56,16 +56,22 @@ function parseTable ($) {
 
 	tableRows = $("#ctl00_ContentPlaceHolder1_SOCListUC1_gvOfferings > tr ");
 
+	var classes = [];
+
 	tableRows.each(function (i, element) {
-		console.log("====== ROW " + i + " =========");
 		td = $(this).children("td");
+
+		var classDict = {};
+
 		td.each(function (i, element) {
-			console.log("********** TABLE DATA **********");
 			var data = $(this).text().replace(/\s{2,}/g, ' ').trim();
 
-			console.log(attribs[i % attribs.length] + ': ' + data);
+			var key = attribs[i % attribs.length];
+			classDict[key] = data;
 		});
+		classes.push(classDict);
 	});
+	console.log(classes);
 }
 
 function parseTitle ($) {
