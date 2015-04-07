@@ -27,7 +27,7 @@ function getClassLinks (url) {
 }
 
 function getClassInfo (baseURL, classURLs) {
-	var classURL = baseURL + classURLs[321];
+	var classURL = baseURL + classURLs[323];
 
 	request(classURL, function parseClassPage (error, response, body) {
 		if (!error && response.statusCode === 200) {
@@ -36,25 +36,35 @@ function getClassInfo (baseURL, classURLs) {
 				abbr    = parseAbbr($),
 				credits = parseCredits($),
 				desc    = parseDesc($);
-			// var desc = $("#aspnetForm").first()
-			// 						   .clone()
-			// 						   .children()
-			// 						   .remove()
-			// 						   .end()
-			// 						   .text()
-			// 						   .trim();
-			// desc = trimNewlines(desc);
-			// var abbr = title.match(/^[A-Z]{1,4}\s[0-9]{2,3}/);
-			// var credits = title.match(/\(([^\)]+)\)/i)[1];
 
-
-			var table = $("#ctl00_ContentPlaceHolder1_SOCListUC1_gvOfferings");
-			//console.log($("h3").text().trim());
+			parseTable($);
 			console.log('title: ' + title);
 			console.log('abbr: ' + abbr);
-			console.log('credits: ' + credits);
-			console.log('desc: ' + desc);
+			// console.log('credits: ' + credits);
+			// console.log('desc: ' + desc);
 		}
+	});
+}
+
+function parseTable ($) {
+	var attribs = [];
+	$("th").each(function (i, element) {
+		var attrib = $(this).text().replace(/\r?\n|\r|\t/g, '');
+		attrib = attrib.replace(/\ {2,}/g, '');
+		attribs.push(attrib);
+	});
+
+	tableRows = $("#ctl00_ContentPlaceHolder1_SOCListUC1_gvOfferings > tr ");
+
+	tableRows.each(function (i, element) {
+		console.log("====== ROW " + i + " =========");
+		td = $(this).children("td");
+		td.each(function (i, element) {
+			console.log("********** TABLE DATA **********");
+			var data = $(this).text().replace(/\s{2,}/g, ' ').trim();
+
+			console.log(attribs[i % attribs.length] + ': ' + data);
+		});
 	});
 }
 
@@ -95,7 +105,3 @@ function trimNewlines (desc) {
 }
 
 getClassLinks(COURSE_SEARCH_URL, getClassInfo);
-
-//getClassInfo('google.com', '/hello');
-
-//'/CourseDetail.aspx?subjectcode=MTH&coursenumber=254&campus=corvallis'
