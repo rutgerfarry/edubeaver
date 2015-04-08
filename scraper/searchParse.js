@@ -5,12 +5,9 @@ var path    = require('path');
 
 var CATALOG_URL = 'http://catalog.oregonstate.edu/';
 var COURSE_SEARCH_URL = CATALOG_URL + 'CourseSearcher.aspx?chr=abg';
-var COURSE_ATTRIBS = ['term', 'crn', 'sec', 'cr', 'pn', 'instructor', 'time', 
-					  'location', 'campus', 'fye', 'type', 'status', 'cap', 
-					  'curr', 'avail', 'wl-cap', 'wl-curr', 'wl-avail', 
-					  'section-title', 'fees', 'restrictions'];
 
-function getClassLinks (url) {
+
+function scrapeClassDatabase (url) {
 
 	request(url, function parseSearchPage (error, response, body) {
 		if (!error && response.statusCode === 200) {
@@ -21,31 +18,43 @@ function getClassLinks (url) {
 				var link = $(this).attr('href');
 				classURLs.push(link);
 			});
-			getClassInfo(CATALOG_URL, classURLs);
+			return getCourseInfo(CATALOG_URL, classURLs);
 		}
 	});
 }
 
-function getClassInfo (baseURL, classURLs) {
+function getCourseInfo (baseURL, classURLs) {
+	var courses = [];
 	var classURL = baseURL + classURLs[323];
 
 	request(classURL, function parseClassPage (error, response, body) {
 		if (!error && response.statusCode === 200) {
 			$ = cheerio.load(body);
+
+			var course = {};
 			var title   = parseTitle($),
 				abbr    = parseAbbr($),
 				credits = parseCredits($),
-				desc    = parseDesc($);
+				desc    = parseDesc($),
+				classes = parseTable($);
 
-			parseTable($);
+
+
+			// console.log('title: ' + typeof title);
+			// console.log('abbr: ' + typeof abbr);
+			// console.log('credits: ' + typeof credits);
+			// console.log('desc: ' + typeof desc);
+			// console.log('classes: ' + typeof classes);
 			console.log('title: ' + title);
 			console.log('abbr: ' + abbr);
 			console.log('credits: ' + credits);
 			console.log('desc: ' + desc);
+			console.log('classes: ' + Object.keys(classes[1]));
 		}
 	});
 }
 
+// Parses the table of class meeting times
 function parseTable ($) {
 	var attribs = [];
 	$("th").each(function (i, element) {
@@ -71,9 +80,11 @@ function parseTable ($) {
 		});
 		classes.push(classDict);
 	});
-	console.log(classes);
+	// First element will be categories, so remove it
+	return classes;
 }
 
+// Gets the title from the class site
 function parseTitle ($) {
 	var title = $("h3").text().trim();
 	title = title.replace(/(^[A-Z]{1,4}\s[0-9]{2,3})/, '');
@@ -84,14 +95,17 @@ function parseTitle ($) {
 	return title;
 }
 
+// Gets the abbreviation from the class site
 function parseAbbr ($) {
-	return $("h3").text().trim().match(/^[A-Z]{1,4}\s[0-9]{2,3}/);
+	return $("h3").text().trim().match(/^[A-Z]{1,4}\s[0-9]{2,3}/)[0];
 }
 
+// Gets the credits from the class site
 function parseCredits ($) {
 	return $("h3").text().match(/\(([^\)]+)\)/i)[1];
 }
 
+// Gets the description from the class site
 function parseDesc ($) {
 	var desc = $("#aspnetForm").first()
 							   .clone()
@@ -110,4 +124,6 @@ function trimNewlines (desc) {
 	return desc.substring(0, n);
 }
 
-getClassLinks(COURSE_SEARCH_URL, getClassInfo);
+scrapeClassDatabase(COURSE_SEARCH_URL);
+
+
