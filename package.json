@@ -20,7 +20,6 @@
     "async": "^0.9.0",
     "cheerio": "^0.19.0",
     "express": "^4.12.3",
-    "mysql": "git://github.com/felixge/node-mysql.git",
     "request": "^2.55.0"
   }
 }
