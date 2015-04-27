@@ -10,6 +10,7 @@ const
   COURSE_SEARCH_URL = CATALOG_URL + 'CourseSearcher.aspx?chr=abg';
 
 
+
 exports.scrape = getCourseLinks;
 
 
@@ -39,14 +40,20 @@ function getCourseInfo (baseURL, classURLs, callback) {
   var courses = [];
   var index = 1;
 
-  async.each(classURLs.slice(0, 15), function (url, asyncCallback) {
+  async.eachLimit(classURLs, 500, function (url, asyncCallback) {
 
     var classURL = baseURL + url;
     console.log('Scraping ' + index++ + ' of ' + classURLs.length);
     console.log('URL: ' + classURL);
 
     request(classURL, function scrapeClassPage (error, response, body) {
-      if (!error && response.statusCode === 200) {
+      if (error) {
+        console.error('Error scraping ' + classURL + '\n' + error);
+      }
+      else if (response.statusCode !== 200) {
+        console.error('Reponse status code == ' + response.statusCode);
+      }
+      else {
         var course = classParser.parseCourseFromHTML(body);
         courses.push(course);
         asyncCallback();
