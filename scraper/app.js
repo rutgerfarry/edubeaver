@@ -4,13 +4,14 @@ const
   database    = require('../database/mdb.js');
 
 
-searchParse.scrape(function scrapeComplete (courses) {
+searchParse.scrape(function scrapeComplete (courses, db) {
   console.log('Scrape complete. ' + courses.length + 
               ' course records obtained.');
 
-  database.insertCourses(courses, function () {
-    console.log('Courses inserted');
-  });
+  db.disconnect();
+  // database.insertCourses(courses, function () {
+  //   console.log('Courses inserted');
+  // });
 });
 
 

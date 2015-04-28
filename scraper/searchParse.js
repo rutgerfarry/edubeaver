@@ -2,13 +2,13 @@ const
   request      = require('request'),
   cheerio      = require('cheerio'),
   async        = require('async'),
-  classParser  = require('./classParser');
+  classParser  = require('./classParser'),
+  db           = require('../database/db');
 
 
 const
   CATALOG_URL = 'http://catalog.oregonstate.edu/',
   COURSE_SEARCH_URL = CATALOG_URL + 'CourseSearcher.aspx?chr=abg';
-
 
 
 exports.scrape = getCourseLinks;
@@ -19,7 +19,7 @@ exports.scrape = getCourseLinks;
 /////////////////////////////////////////////////
 
 function getCourseLinks (callback) {
-
+  db.connect();
   request(COURSE_SEARCH_URL, function parseSearchPage (err, res, body) {
     if (!err && res.statusCode === 200) {
       var classURLs = [];
@@ -40,7 +40,7 @@ function getCourseInfo (baseURL, classURLs, callback) {
   var courses = [];
   var index = 1;
 
-  async.eachLimit(classURLs, 500, function (url, asyncCallback) {
+  async.eachLimit(classURLs.slice(0, 500), 500, function (url, asyncCallback) {
 
     var classURL = baseURL + url;
     console.log('Scraping ' + index++ + ' of ' + classURLs.length);
@@ -56,6 +56,10 @@ function getCourseInfo (baseURL, classURLs, callback) {
       else {
         var course = classParser.parseCourseFromHTML(body);
         courses.push(course);
+
+        // wow
+        db.insertCourse(course);
+
         asyncCallback();
       }
     });
@@ -63,7 +67,7 @@ function getCourseInfo (baseURL, classURLs, callback) {
     if (error) {
       console.err('An error occured: ' + error);
     } else {
-      callback(courses);
+      callback(courses, db);
     }
   });
 }
