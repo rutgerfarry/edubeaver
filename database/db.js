@@ -55,7 +55,6 @@ function insertCourse (course, callback) {
         if (err) {
           callback(err);
         }
-        console.log('inserted course!!!!!!!!');
         callback();
       });
     });
@@ -80,27 +79,27 @@ function insertSection (section, asyncCallback) {
 
     asyncCallback();
 
-  // var sectionData = {
-  //   course_id   : id,
-  //   term        : section.term,
-  //   crn         : section.crn,
-  //   sec         : section.sec,
-  //   credits     : section.cr,
-  //   instructor  : section.instructor,
-  //   start_date  : section.startdate,
-  //   end_date    : section.enddate,
-  //   start_time  : section.starttime,
-  //   end_time    : section.endtime,
-  //   location    : section.location
-  // };
+  var sectionData = {
+    course_id   : id,
+    term        : section.term,
+    crn         : section.crn,
+    sec         : section.sec,
+    credits     : section.cr,
+    instructor  : section.instructor,
+    start_date  : section.startdate,
+    end_date    : section.enddate,
+    start_time  : section.starttime,
+    end_time    : section.endtime,
+    location    : section.location
+  };
 
-  // pool.query(sql, sectionData, function (err, res) {
-  //   if (err) {
-  //     asyncCallback(err);
-  //   } else {
-  //     asyncCallback();
-  //   }
-  // });
+  pool.query(sql, sectionData, function (err, res) {
+    if (err) {
+      asyncCallback(err);
+    } else {
+      asyncCallback();
+    }
+  });
 }
 
 function disconnect() {

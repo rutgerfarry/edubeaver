@@ -1,6 +1,7 @@
 const
   cheerio = require('cheerio');
 
+
 exports.parseCourseFromHTML = parseCourseFromHTML;
 
 
@@ -72,18 +73,17 @@ function parseTable ($) {
 
     td.each(function (i) {
       var data = $(this).text().replace(/\s{2,}/g, ' ').trim();
-      var key = attribs[i % attribs.length];
+      var key = formatKey(attribs[i % attribs.length]);
 
       // Parse date
-      if (key === "Day/Time/Date") {
+      if (key === "daytimedate") {
         try {
         var info = $(this).text();
-  
-        classDict.M = info.indexOf('M') > -1; 
-        classDict.T = info.indexOf('T') > -1;
-        classDict.W = info.indexOf('W') > -1;
-        classDict.R = info.indexOf('R') > -1;
-        classDict.F = info.indexOf('F') > -1;
+        classDict.m = info.indexOf('M') > -1; 
+        classDict.t = info.indexOf('T') > -1;
+        classDict.w = info.indexOf('W') > -1;
+        classDict.r = info.indexOf('R') > -1;
+        classDict.f = info.indexOf('F') > -1;
 
         classDict.starttime = 
           info.match(/[0-9]{4}/g)[0];
@@ -120,4 +120,7 @@ function trimNewlines (desc) {
   return desc.substring(0, n);
 }
 
+function formatKey(key) {
+  return key.toLowerCase().replace(/[^A-z]/g, '');
+}
 
