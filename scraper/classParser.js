@@ -78,24 +78,24 @@ function parseTable ($) {
       // Parse date
       if (key === "daytimedate") {
         try {
-        var info = $(this).text();
-        classDict.m = info.indexOf('M') > -1; 
-        classDict.t = info.indexOf('T') > -1;
-        classDict.w = info.indexOf('W') > -1;
-        classDict.r = info.indexOf('R') > -1;
-        classDict.f = info.indexOf('F') > -1;
+          var info = $(this).text();
+          classDict.m = info.indexOf('M') > -1; 
+          classDict.t = info.indexOf('T') > -1;
+          classDict.w = info.indexOf('W') > -1;
+          classDict.r = info.indexOf('R') > -1;
+          classDict.f = info.indexOf('F') > -1;
 
-        classDict.starttime = 
-          info.match(/[0-9]{4}/g)[0];
-        classDict.endtime   = 
-          info.match(/[0-9]{4}/g)[1];
-        classDict.startdate = 
-          info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[0];
-        classDict.enddate   = 
-          info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[1];
+          classDict.starttime = 
+            info.match(/[0-9]{4}/g)[0];
+          classDict.endtime   = 
+            info.match(/[0-9]{4}/g)[1];
+          classDict.startdate = 
+            info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[0];
+          classDict.enddate   = 
+            info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[1];
         }
         catch (err) {
-          //console.error(err);
+          console.error('Error matching date' + err);
         }
       }
       else {

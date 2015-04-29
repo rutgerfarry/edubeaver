@@ -73,7 +73,7 @@ function insertSections(course, id, callback) {
 function insertSection (section, asyncCallback) {
   const 
     sql = 'INSERT INTO sections SET ?',
-    id  = this;
+    id  = this[0]['LAST_INSERT_ID()'];
 
     asyncCallback();
 

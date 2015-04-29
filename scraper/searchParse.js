@@ -40,7 +40,7 @@ function getCourseInfo (baseURL, classURLs, callback) {
   var courses = [];
   var index = 1;
 
-  async.eachLimit(classURLs.slice(0, 15), 50, function (url, asyncCallback) {
+  async.eachLimit(classURLs, 10, function (url, asyncCallback) {
 
     var classURL = baseURL + url;
     console.log('Scraping ' + index++ + ' of ' + classURLs.length);
