@@ -40,7 +40,7 @@ function getCourseInfo (baseURL, classURLs, callback) {
   var courses = [];
   var index = 1;
 
-  async.eachLimit(classURLs.slice(0, 1), 50, function (url, asyncCallback) {
+  async.eachLimit(classURLs.slice(0, 15), 50, function (url, asyncCallback) {
 
     var classURL = baseURL + url;
     console.log('Scraping ' + index++ + ' of ' + classURLs.length);
@@ -70,7 +70,7 @@ function getCourseInfo (baseURL, classURLs, callback) {
     });
   }, function doneScraping (err) {
     if (err) {
-      console.error('An error occured: ' + err);
+      console.error('An error occured scraping: ' + err);
     } else {
       db.disconnect();
       callback(courses);

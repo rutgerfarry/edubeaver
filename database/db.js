@@ -75,22 +75,33 @@ function insertSection (section, asyncCallback) {
     sql = 'INSERT INTO sections SET ?',
     id  = this;
 
-    console.log(section);
-
     asyncCallback();
 
   var sectionData = {
-    course_id   : id,
-    term        : section.term,
-    crn         : section.crn,
-    sec         : section.sec,
-    credits     : section.cr,
-    instructor  : section.instructor,
-    start_date  : section.startdate,
-    end_date    : section.enddate,
-    start_time  : section.starttime,
-    end_time    : section.endtime,
-    location    : section.location
+    course_id       : id,
+    term            : section.term,
+    crn             : section.crn,
+    sec             : section.sec,
+    credits         : section.cr,
+    instructor      : section.instructor,
+    m               : section.m,
+    t               : section.t,
+    w               : section.w,
+    r               : section.r,
+    f               : section.f,
+    start_date      : section.startdate,
+    end_date        : section.enddate,
+    start_time      : section.starttime,
+    end_time        : section.endtime,
+    location        : section.location,
+    campus          : section.campus,
+    cap             : section.cap,
+    enrolled        : section.curr,
+    wl_cap          : section.wlcap,
+    wl_current      : section.wlcurr,
+    fees            : section.fees,
+    restrictions    : section.restrictions,
+    comments        : section.comments
   };
 
   pool.query(sql, sectionData, function (err, res) {
