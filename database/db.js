@@ -9,7 +9,7 @@ exports.disconnect   = disconnect;
 exports.insertCourse = insertCourse;
 
 
-var pool;
+var connection;
 
 
 function connect(callback) {
@@ -21,8 +21,7 @@ function connect(callback) {
       config = JSON.parse(data);
     }
 
-    pool = mysql.createPool({
-      connectionLimit: 5,
+    connection = mysql.createConnection({
       host           : config.db.host,
       user           : config.db.user,
       password       : config.db.password,
@@ -35,7 +34,7 @@ function connect(callback) {
 function insertCourse (course, callback) {
   const sql = 'INSERT INTO courses SET ?';
 
-  var courseData = {
+  const courseData = {
     title       : course.title,
     abbr        : course.abbr,
     credits     : course.credits,
@@ -43,11 +42,11 @@ function insertCourse (course, callback) {
   };
 
   // Get id of inserted course, use it to associate sections with that course
-  pool.query(sql, courseData, function (err) {
+  connection.query(sql, courseData, function (err) {
     if (err) {
       throw err;
     }
-    pool.query('SELECT LAST_INSERT_ID()', function(err, id) {
+    connection.query('SELECT LAST_INSERT_ID()', function(err, id) {
       if (err) {
         throw err;
       }
@@ -75,9 +74,15 @@ function insertSection (section, asyncCallback) {
     sql = 'INSERT INTO sections SET ?',
     id  = this[0]['LAST_INSERT_ID()'];
 
-    asyncCallback();
+  console.log(section);
 
-  var sectionData = {
+  const 
+    sdArr = section.startdate.split('/'),
+    edArr = section.enddate.split('/'),
+    startDate = new Date('20' + sdArr[2], sdArr[0] - 1, sdArr[1]),
+    endDate =   new Date('20' + edArr[2], edArr[0] - 1, edArr[1]);
+
+  const sectionData = {
     course_id       : id,
     term            : section.term,
     crn             : section.crn,
@@ -89,10 +94,10 @@ function insertSection (section, asyncCallback) {
     w               : section.w,
     r               : section.r,
     f               : section.f,
-    start_date      : section.startdate,
-    end_date        : section.enddate,
-    start_time      : section.starttime,
-    end_time        : section.endtime,
+    start_date      : startDate,
+    end_date        : endDate,
+    start_time      : section.starttime + '00',
+    end_time        : section.endtime + '00',
     location        : section.location,
     campus          : section.campus,
     cap             : section.cap,
@@ -104,7 +109,9 @@ function insertSection (section, asyncCallback) {
     comments        : section.comments
   };
 
-  pool.query(sql, sectionData, function (err, res) {
+  console.log(sectionData);
+
+  connection.query(sql, sectionData, function (err, res) {
     if (err) {
       asyncCallback(err);
     } else {
@@ -114,11 +121,11 @@ function insertSection (section, asyncCallback) {
 }
 
 function disconnect() {
-  pool.end(function (error) {
+  connection.end(function (error) {
     if (error) {
       console.error('Error disconnecting from MySQL server: ' + error);
     } else {
-      console.log('Successfully disconnected from DB');
+      console.log('Disconnected from DB');
     }
   });
 }
