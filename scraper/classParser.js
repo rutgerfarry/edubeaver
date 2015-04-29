@@ -13,7 +13,7 @@ function parseCourseFromHTML (htmlBody) {
   course.abbr = parseAbbr($);
   course.credits = parseCredits($);
   course.desc = parseDesc($);
-  course.classes = parseTable($);
+  course.sections = parseTable($);
 
   return course;
 }
@@ -63,7 +63,7 @@ function parseTable ($) {
 
   tableRows = $('#ctl00_ContentPlaceHolder1_SOCListUC1_gvOfferings > tr ');
 
-  var classes = [];
+  var sections = [];
 
   tableRows.each(function (i, element) {
     var classDict = {};
@@ -85,13 +85,13 @@ function parseTable ($) {
         classDict.R = info.indexOf('R') > -1;
         classDict.F = info.indexOf('F') > -1;
 
-        classDict.startTime = 
+        classDict.starttime = 
           info.match(/[0-9]{4}/g)[0];
-        classDict.endTime   = 
+        classDict.endtime   = 
           info.match(/[0-9]{4}/g)[1];
-        classDict.startDate = 
+        classDict.startdate = 
           info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[0];
-        classDict.endDate   = 
+        classDict.enddate   = 
           info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[1];
         }
         catch (err) {
@@ -102,11 +102,11 @@ function parseTable ($) {
         classDict[key] = data;
       }
     });
-    classes.push(classDict);
+    sections.push(classDict);
   });
   // First element will be categories, so remove it
-  classes.splice(0, 1);
-  return classes;
+  sections.splice(0, 1);
+  return sections;
 }
 
 

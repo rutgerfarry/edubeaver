@@ -20,8 +20,8 @@ exports.scrape = getCourseLinks;
 
 function getCourseLinks (callback) {
   db.connect();
-  request(COURSE_SEARCH_URL, function parseSearchPage (err, res, body) {
-    if (!err && res.statusCode === 200) {
+  request(COURSE_SEARCH_URL, function parseSearchPage (error, res, body) {
+    if (!error && res.statusCode === 200) {
       var classURLs = [];
       $ = cheerio.load(body);
 
@@ -40,7 +40,7 @@ function getCourseInfo (baseURL, classURLs, callback) {
   var courses = [];
   var index = 1;
 
-  async.eachLimit(classURLs.slice(0, 500), 500, function (url, asyncCallback) {
+  async.eachLimit(classURLs.slice(0, 1), 50, function (url, asyncCallback) {
 
     var classURL = baseURL + url;
     console.log('Scraping ' + index++ + ' of ' + classURLs.length);
@@ -49,25 +49,31 @@ function getCourseInfo (baseURL, classURLs, callback) {
     request(classURL, function scrapeClassPage (error, response, body) {
       if (error) {
         console.error('Error scraping ' + classURL + '\n' + error);
+        asyncCallback();
       }
       else if (response.statusCode !== 200) {
         console.error('Reponse status code == ' + response.statusCode);
+        asyncCallback();
       }
       else {
         var course = classParser.parseCourseFromHTML(body);
         courses.push(course);
 
         // wow
-        db.insertCourse(course);
-
-        asyncCallback();
+        db.insertCourse(course, function (err) {
+          if (err) {
+            asyncCallback('Error inserting course: ' + err);
+          }
+          asyncCallback();
+        });
       }
     });
-  }, function (error) {
-    if (error) {
-      console.err('An error occured: ' + error);
+  }, function doneScraping (err) {
+    if (err) {
+      console.error('An error occured: ' + err);
     } else {
-      callback(courses, db);
+      db.disconnect();
+      callback(courses);
     }
   });
 }
