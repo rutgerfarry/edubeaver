@@ -123,4 +123,3 @@ function trimNewlines (desc) {
 function formatKey(key) {
   return key.toLowerCase().replace(/[^A-z]/g, '');
 }
-

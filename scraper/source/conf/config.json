@@ -1,0 +1,9 @@
+{
+	"db": {
+		"host"    : "localhost:3306",
+		"user"    : "root",
+		"password": "root",
+    "socket"  : "/Applications/MAMP/tmp/mysql/mysql.sock",
+		"database": "edubeaver"
+	}
+}
