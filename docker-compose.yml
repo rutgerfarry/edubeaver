@@ -2,6 +2,8 @@ scraper:
     build: scraper/
     links: 
         - mysql
+    volumes_from: 
+        - src
 mysql:
     build: ./mysql
     volumes_from: 
@@ -10,3 +12,7 @@ volume:
     image: mysql
     volumes: 
         - /var/lib/mysql/
+src:
+    image: ubuntu
+    volumes: 
+        - /Users/Rutger/Dropbox/Projects/edubeaver/scraper:/src

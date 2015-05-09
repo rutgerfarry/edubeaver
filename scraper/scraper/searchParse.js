@@ -62,7 +62,8 @@ function getCourseInfo (baseURL, classURLs, callback) {
         // wow
         db.insertCourse(course, function (err) {
           if (err) {
-            asyncCallback('Error inserting course: ' + err);
+            console.error('Error inserting course: ' + err);
+            throw err;
           }
           asyncCallback();
         });

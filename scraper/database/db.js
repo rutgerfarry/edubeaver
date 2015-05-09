@@ -44,11 +44,11 @@ function insertCourse (course, callback) {
   // Get id of inserted course, use it to associate sections with that course
   connection.query(sql, courseData, function (err) {
     if (err) {
-      throw err;
+      callback(err);
     }
     connection.query('SELECT LAST_INSERT_ID()', function(err, id) {
       if (err) {
-        throw err;
+        callback(err);
       }
       insertSections(course, id, function (err) {
         if (err) {
