@@ -22,7 +22,7 @@ function connect(callback) {
     }
 
     connection = mysql.createConnection({
-      host           : '172.17.0.4',
+      host           : process.env.MYSQL_PORT_3306_TCP_ADDR,
       port           : 3306,
       user           : config.db.user,
       password       : config.db.password,
@@ -106,8 +106,8 @@ function insertSection (section, asyncCallback) {
     f               : section.f,
     start_date      : startDate,
     end_date        : endDate,
-    start_time      : section.starttime + '00',
-    end_time        : section.endtime + '00',
+    start_time      : section.starttime,
+    end_time        : section.endtime,
     location        : section.location,
     campus          : section.campus,
     type            : section.type,
@@ -125,7 +125,7 @@ function insertSection (section, asyncCallback) {
 
   connection.query(sql, sectionData, function (err, res) {
     if (err) {
-      asyncCallback(err);
+      asyncCallback(err + sectionData.courseId);
     } else {
       asyncCallback();
     }
