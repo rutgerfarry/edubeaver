@@ -1,0 +1,12 @@
+scraper:
+    build: scraper/
+    links: 
+        - mysql
+mysql:
+    build: ./mysql
+    volumes_from: 
+        - volume
+volume:
+    image: mysql
+    volumes: 
+        - /var/lib/mysql/

@@ -77,26 +77,8 @@ function parseTable ($) {
 
       // Parse date
       if (key === "daytimedate") {
-        try {
-          var info = $(this).text();
-          classDict.m = info.indexOf('M') > -1; 
-          classDict.t = info.indexOf('T') > -1;
-          classDict.w = info.indexOf('W') > -1;
-          classDict.r = info.indexOf('R') > -1;
-          classDict.f = info.indexOf('F') > -1;
-
-          classDict.starttime = 
-            info.match(/[0-9]{4}/g)[0];
-          classDict.endtime   = 
-            info.match(/[0-9]{4}/g)[1];
-          classDict.startdate = 
-            info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[0];
-          classDict.enddate   = 
-            info.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[1];
-        }
-        catch (err) {
-          console.error('Error matching date' + err);
-        }
+        const text = $(this).text();
+        parseTableDate(text, classDict);
       }
       else {
         classDict[key] = data;
@@ -107,6 +89,37 @@ function parseTable ($) {
   // First element will be categories, so remove it
   sections.splice(0, 1);
   return sections;
+}
+
+function parseTableDate(text, classDict) {
+  if (text.match(/\d+/g) && text.indexOf('TBA') === -1) {
+    classDict.m = text.indexOf('M') > -1; 
+    classDict.t = text.indexOf('T') > -1;
+    classDict.w = text.indexOf('W') > -1;
+    classDict.r = text.indexOf('R') > -1;
+    classDict.f = text.indexOf('F') > -1;
+
+    classDict.starttime = 
+      text.match(/[0-9]{4}/g)[0] + '00';
+    classDict.endtime   = 
+      text.match(/[0-9]{4}/g)[1] + '00';
+    classDict.startdate = 
+      text.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[0];
+    classDict.enddate   = 
+      text.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}/g)[1];
+  }
+  else {
+    classDict.m = null;
+    classDict.t = null;
+    classDict.w = null;
+    classDict.r = null;
+    classDict.f = null;
+
+    classDict.starttime = null;
+    classDict.endtime   = null;
+    classDict.startdate = null;
+    classDict.enddate   = null;
+  }
 }
 
 
@@ -123,3 +136,5 @@ function trimNewlines (desc) {
 function formatKey(key) {
   return key.toLowerCase().replace(/[^A-z]/g, '');
 }
+
+
