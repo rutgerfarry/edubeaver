@@ -1,18 +1,40 @@
+web:
+    image: node:0.12
+    links:
+        - mysql
+    volumes_from:
+        - src
+    ports: 
+        - "3000:3000"
+    working_dir: /src/web
+    stdin_open: true
+    tty: true
 scraper:
-    build: scraper/
+    image: node:0.12
     links: 
         - mysql
     volumes_from: 
         - src
+    working_dir: /src/scraper
+    stdin_open: true
+    tty: true
 mysql:
-    build: ./mysql
+    image: mysql
     volumes_from: 
         - volume
+        - src
+    working_dir: /src/mysql
+    stdin_open: true
+    tty: true
+    environment: 
+        MYSQL_ROOT_PASSWORD: root
 volume:
     image: mysql
     volumes: 
         - /var/lib/mysql/
+    expose: 
+        - "3306"
 src:
     image: ubuntu
     volumes: 
-        - /Users/Rutger/Dropbox/Projects/edubeaver/scraper:/src
+        - /Users/Rutger/Dropbox/Projects/edubeaver:/src

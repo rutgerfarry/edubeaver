@@ -1,0 +1,8 @@
+volume:
+    image: mysql
+    volumes: 
+        - /var/lib/mysql/
+src:
+    image: ubuntu
+    volumes: 
+        - /Users/Rutger/Dropbox/Projects/edubeaver:/src

@@ -14,7 +14,7 @@ var connection;
 
 function connect(callback) {
   var config;
-  fs.readFile('../conf/config.json', 'utf8', function (error, data) {
+  fs.readFile('../../config.json', 'utf8', function (error, data) {
     if (error) {
       console.error('Could not log into database: config file not found');
     } else {
@@ -25,7 +25,7 @@ function connect(callback) {
       host           : process.env.MYSQL_PORT_3306_TCP_ADDR,
       port           : 3306,
       user           : config.db.user,
-      password       : config.db.password,
+      password       : process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD,
       database       : config.db.database
     });
   });

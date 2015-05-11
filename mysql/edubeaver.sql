@@ -18,7 +18,7 @@ CREATE TABLE `courses` (
   `title` varchar(128) DEFAULT NULL,
   `abbr` varchar(10) NOT NULL,
   `credits` varchar(10) DEFAULT NULL,
-  `description` varchar(2500) DEFAULT NULL,
+  `description` varchar(3000) DEFAULT NULL,
   `time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
@@ -60,4 +60,11 @@ CREATE TABLE `sections` (
   CONSTRAINT `course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Create a superuser just in case :)
+--
+CREATE USER 'app'@'localhost' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'app'@'localhost' WITH GRANT OPTION;
+CREATE USER 'app'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'app'@'%' WITH GRANT OPTION;
 
