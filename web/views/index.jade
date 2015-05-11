@@ -4,5 +4,9 @@ block content
   
   h1= title
   ul
-    each title in courseTitles
-      li= title
+    each course in courses
+      li
+      .title
+        a(href='course/' + course.abbr) 
+          b #{course.abbr} - 
+          | #{course.title}

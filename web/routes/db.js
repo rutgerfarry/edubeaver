@@ -22,10 +22,8 @@ function connect(callback) {
   });
 }
 
-function query(sql, res) {
-  connection.query(sql, function (err, results, fields) {
-    res(err, results, fields);
-  });
+function query(sqlString, values, callback) {
+  connection.query(sqlString, values, callback);
 }
 
 function disconnect() {

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+
+  h1= course[0].abbr + ': ' + course[0].title
+  p= course[0].description
+
+  b sections
+  ul
+    each s in course
+      li 
+        | #{s.days} #{s.start_time}-#{s.end_time} @#{s.location} with #{s.instructor}
