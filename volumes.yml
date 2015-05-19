@@ -1,8 +1,15 @@
+mysql:
+    image: mysql
+    volumes_from: 
+        - volume
+    stdin_open: true
+    tty: true
+    environment: 
+        MYSQL_ROOT_PASSWORD: root
 volume:
     image: mysql
+    entrypoint: true
     volumes: 
         - /var/lib/mysql/
-src:
-    image: ubuntu
-    volumes: 
-        - /Users/Rutger/Dropbox/Projects/edubeaver:/src
+    expose: 
+        - "3306"
