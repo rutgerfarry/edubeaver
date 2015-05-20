@@ -18,6 +18,12 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/courses', function(req, res, next) {
+  db.query('SELECT title, abbr FROM courses', function (err, results, fields) {
+    res.json(results);
+  });
+});
+
 router.get('/course/:title', function(req, res, next) {
   console.log(req.originalUrl);
   const sqlString = 'SELECT * FROM courses ' +

@@ -1,0 +1,9 @@
+<h1>edubeaver</h1>
+<ul>
+	<li ng-repeat="course in courses">
+		<a href="course/{{ course.abbr }}">
+			<b>{{ course.abbr }} - </b>
+			{{ course.title }}
+		</a>
+	</li>
+</ul>
