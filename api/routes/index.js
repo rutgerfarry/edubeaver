@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/course/:title', function(req, res, next) {
+  console.log(req.originalUrl);
   const sqlString = 'SELECT * FROM courses ' +
                     'LEFT JOIN sections ' +
                     'ON courses.id = sections.course_id ' + 
