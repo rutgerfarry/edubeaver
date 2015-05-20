@@ -2,52 +2,77 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
 a {
   color: #00B7FF;
 }
+
 ul {
   list-style: none;
 }
-.title a {
-  color: #444;
-  list-style: none;
+
+.title {
+  a {
+    color: #444;
+    list-style: none;
+    b {
+      color: #00B7FF;
+    }
+  }
 }
-.title a b {
-  color: #00B7FF;
-}
+
 #logo a {
   color: #444;
+  :hover, :focus {
+    text-decoration: none;
+  }
 }
-#logo a :hover,
-#logo a :focus {
-  text-decoration: none;
-}
+
 #footer {
   font-style: italic;
   color: #aaa;
+  a {
+    color: #aaa;
+  }
 }
-#footer a {
-  color: #aaa;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
   margin-bottom: 2em;
   padding: 0 0 0.5em;
 }
+
 .menu:before {
   content: "[";
 }
+
 .menu:after {
   content: "]";
 }
+
 .menu > li {
   display: inline;
 }
+
 .menu > li:before {
   content: "|";
   padding-right: 0.3em;
 }
+
 .menu > li:nth-child(1):before {
   content: "";
   padding: 0;
