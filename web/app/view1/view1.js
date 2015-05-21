@@ -11,9 +11,6 @@ angular.module('myApp.view1', ['ngRoute', 'ngResource'])
 
 .controller('View1Ctrl', ['$scope', '$resource', function($scope, $resource) {
 
-  // var courses = $resource('http://192.168.59.103:3000/courses');
-  // courses.get();
-  $scope.courses = $resource('http://192.168.59.103:3000/courses');
-  $scope.courses.get();
-
+  var courses = $resource('http://192.168.59.103:3000/courses');
+  $scope.courses = courses.query();
 }]);
