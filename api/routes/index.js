@@ -24,6 +24,14 @@ router.get('/courses', function(req, res, next) {
   });
 });
 
+router.get('/courses/:abbr', function(req, res, next) {
+  const sqlString = 'SELECT * FROM courses ' +
+                    'LEFT JOIN sections ' +
+                    'ON courses.id = sections.course_id ' + 
+                    'WHERE courses.abbr = ?';
+  
+});
+
 router.get('/course/:title', function(req, res, next) {
   console.log(req.originalUrl);
   const sqlString = 'SELECT * FROM courses ' +

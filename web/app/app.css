@@ -6,6 +6,7 @@ a {
   color: #00B7FF;
 }
 ul {
+  column-count: 2;
   list-style: none;
 }
 .title a {
@@ -28,4 +29,10 @@ ul {
 }
 #footer a {
   color: #aaa;
+}
+.home-search {
+  height: 48px;
+}
+.home-search img {
+  height: 100%;
 }
