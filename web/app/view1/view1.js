@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp.view1', ['ngRoute', 'ngResource'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {
@@ -9,10 +9,11 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ['$scope', function($scope) {
-  $scope.courses = [
-    { abbr: 'CS 160', title: 'INTRODUCTION TO COMPUTER SCIENCE' },
-    { abbr: 'ACTG 317', title: 'EXTERNAL REPORTING I' },
-    { abbr: 'MB 302', title: 'GENERAL MICROBIOLOGY' }
-  ];
+.controller('View1Ctrl', ['$scope', '$resource', function($scope, $resource) {
+
+  // var courses = $resource('http://192.168.59.103:3000/courses');
+  // courses.get();
+  $scope.courses = $resource('http://192.168.59.103:3000/courses');
+  $scope.courses.get();
+
 }]);

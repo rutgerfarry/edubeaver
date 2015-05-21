@@ -1,4 +1,4 @@
-web:
+api:
     image: node:0.12
     links:
         - mysql
@@ -6,7 +6,7 @@ web:
         - src
     ports: 
         - "3000:3000"
-    working_dir: /src/web
+    working_dir: /src/api
     stdin_open: true
     tty: true
 scraper:
