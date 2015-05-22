@@ -5,9 +5,16 @@ angular.module('myApp', [
   'ngRoute',
   'ngResource',
   'myApp.home',
-  'myApp.view2',
+  'myApp.courseView',
   'myApp.version'
-]).
-config(['$routeProvider', function($routeProvider) {
+])
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
+}])
+.run(['$rootScope','$location', '$routeParams', function($rootScope, $location, $routeParams) {
+  $rootScope.$on('$routeChangeSuccess', function(e, current, pre) {
+    console.log('Current route name: ' + $location.path());
+    // Get all URL parameter
+    console.log($routeParams);
+  });
 }]);

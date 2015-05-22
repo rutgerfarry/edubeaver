@@ -18,7 +18,7 @@
 	<br>
 	<ul>
 		<li ng-repeat="course in courses | filter:searchy" class="title">
-			<a href="course/{{ course.abbr }}">
+			<a ng-href="#/course/{{ course.abbr }}">
 				<b>{{ course.abbr }} - </b>
 				{{ course.title }}
 			</a>
