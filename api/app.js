@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var courses = require('./routes/courses');
+var search = require('./routes/search');
 
 var app = express();
 
@@ -27,8 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Allow cross-origin resource sharing
 app.use(cors());
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/courses', courses);
+app.use('/search', search);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
