@@ -55,7 +55,6 @@ Note: "credits" is sometimes a range, e.g. "1-16", therefore it is returned as a
       "restrictions": "Prereqs: (ANS 316 [D-] and ANS 317 [D-] )",
       "comments": null
     },
-    {...},
     {...}
   ]
 }
@@ -74,14 +73,13 @@ Returns a list of up to 100 matching courses, not including invividual sections.
 ```json
 [
 	{
-  	"title": "Applied Physiology of Reproduction",
-  	"abbr": "ANS 327",
- 		"credits": "5",
- 		"description": "Principles, techniques and recent development in semen collection, 
-	  evaluation, extension and preservation; artificial insemination, estrus detection 
-  	and synchronization; pregnancy diagnosis and embryo transfer."
-  	},
-  	{...},
-  	{...}
+		"title": "Applied Physiology of Reproduction",
+		"abbr": "ANS 327",
+		"credits": "5",
+		"description": "Principles, techniques and recent development in semen collection, 
+		evaluation, extension and preservation; artificial insemination, estrus detection 
+		and synchronization; pregnancy diagnosis and embryo transfer."
+	},
+	{...}
 ]
 ```
