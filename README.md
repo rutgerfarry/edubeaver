@@ -27,7 +27,9 @@ Note: "credits" is sometimes a range, e.g. "1-16", therefore it is returned as a
   "title": "Applied Physiology of Reproduction",
   "abbr": "ANS 327",
   "credits": "5",
-  "description": "Principles, techniques and recent development in semen collection, evaluation, extension and preservation; artificial insemination, estrus detection and synchronization; pregnancy diagnosis and embryo transfer.",
+  "description": "Principles, techniques and recent development in semen collection, 
+  evaluation, extension and preservation; artificial insemination, estrus detection 
+  and synchronization; pregnancy diagnosis and embryo transfer.",
   "sections": [
     {
       "term": "Fall 2015",
@@ -54,10 +56,6 @@ Note: "credits" is sometimes a range, e.g. "1-16", therefore it is returned as a
       "comments": null
     },
     {...},
-    {...}
-  ]
-}
-    },
     {...}
   ]
 }
