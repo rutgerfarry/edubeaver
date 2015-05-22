@@ -1,27 +1,28 @@
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<img src="img/logo.png" class="img-responsive" alt="classmere logo">
-			<br>
-			<h4 class="text-center">Get the classes you need and find new courses that interest you at Oregon State University</h4>
-		</div>
-	</div>
-	<br>
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3 input-group">
-			<input type="text" ng-model="searchy" class="form-control home-search" placeholder="Search">
-			<span class="input-group-addon home-search">
-				<img src="img/search_icon.png" class="home-search">
-			</span>
-		</div>
-	</div>
-	<br>
-	<ul>
-		<li ng-repeat="course in courses | filter:searchy" class="title">
-			<a ng-href="#/course/{{ course.abbr }}">
-				<b>{{ course.abbr }} - </b>
-				{{ course.title }}
-			</a>
-		</li>
-	</ul>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <br>
+      <br>
+      <h1 class="text-center">classmere</h1>
+      <h4 class="text-center">Get the classes you need and find courses that interest you at Oregon State University</h4>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 input-group">
+      <input type="text" ng-model="searchy" class="form-control home-search" placeholder="Search">
+      <span class="input-group-addon home-search">
+        <img src="img/search_icon.png" class="home-search">
+      </span>
+    </div>
+  </div>
+  <br>
+  <ul>
+    <li ng-repeat="course in courses | filter:searchy" class="title">
+      <a ng-href="#/course/{{ course.abbr }}">
+        <b>{{ course.abbr }} - </b>
+        {{ course.title }}
+      </a>
+    </li>
+  </ul>
 </div>
