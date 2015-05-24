@@ -4,7 +4,7 @@ angular.module('myApp.courseView', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/course/:abbr', {
-    templateUrl: 'courseView/courseView.html',
+    templateUrl: 'views/courseView/courseView.html',
     controller: 'courseViewCtrl'
   });
 }])
