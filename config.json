@@ -1,6 +1,6 @@
 {
 	"db": {
-		"host"    : "localhost:3306",
+		"host"    : "localhost",
 		"user"    : "app",
 		"password": "root",
     	"socket"  : "/Applications/MAMP/tmp/mysql/mysql.sock",

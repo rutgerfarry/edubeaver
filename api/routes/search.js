@@ -6,12 +6,11 @@ var db      = require('./db');
 db.connect();
 
 
-router.get('/courses', function(req, res, next) {
+router.get('/courses/:q', function(req, res, next) {
   const sqlString = 'SELECT * FROM courses ' +
                     'WHERE title LIKE ? ' +
                     'OR abbr LIKE ?';
-  console.log(req.query);
-  const q = '%' + req.query.q + '%';
+  const q = '%' + req.params.q + '%';
   db.query(sqlString, [q, q], function(err, results, fields) {
       if (err) {
         console.error(err);

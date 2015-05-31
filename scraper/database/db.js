@@ -22,10 +22,10 @@ function connect(callback) {
     }
 
     connection = mysql.createConnection({
-      host           : process.env.MYSQL_PORT_3306_TCP_ADDR,
+      host           : config.db.host,
       port           : 3306,
       user           : config.db.user,
-      password       : process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD,
+      password       : config.db.password,
       database       : config.db.database
     });
   });
