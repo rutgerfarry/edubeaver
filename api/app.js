@@ -1,19 +1,29 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
+const
+  express = require('express'),
+  path = require('path'),
+  favicon = require('serve-favicon'),
+  logger = require('morgan'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  cors = require('cors'),
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').strategy;
 
-var courses = require('./routes/courses');
-var search = require('./routes/search');
+const
+  courses = require('./routes/courses'),
+  search = require('./routes/search'),
+  users = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var auth = function(req, res, next) {
+  if (!req.isAuthenticated()) {
+    res.send(401);
+  }
+  else {
+    next();
+  }
+};
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -27,8 +37,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Allow cross-origin resource sharing
 app.use(cors());
 
+// Setup passport authentication
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//     // bullshitssssssssssssssssssssssssssss
+//   }
+// ));
+// app.use(passport.initialize());
+
 app.use('/courses', courses);
 app.use('/search', search);
+app.use('/users', auth, users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

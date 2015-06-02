@@ -1,7 +1,6 @@
 const
   mysql = require('mysql'),
-  async = require('async'),
-  fs    = require('fs');
+  async = require('async');
 
 
 exports.connect      = connect;
@@ -13,21 +12,12 @@ var connection;
 
 
 function connect(callback) {
-  var config;
-  fs.readFile('../../config.json', 'utf8', function (error, data) {
-    if (error) {
-      console.error('Could not log into database: config file not found');
-    } else {
-      config = JSON.parse(data);
-    }
-
-    connection = mysql.createConnection({
-      host           : config.db.host,
-      port           : 3306,
-      user           : config.db.user,
-      password       : config.db.password,
-      database       : config.db.database
-    });
+  connection = mysql.createConnection({
+    host           : process.env.MYSQL_PORT_3306_TCP_ADDR,
+    port           : 3306,
+    user           : 'root',
+    password       : process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD,
+    database       : 'edubeaver'
   });
 }
 

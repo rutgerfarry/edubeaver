@@ -8,6 +8,7 @@ angular.module('myApp', [
   'myApp.courseView',
   'myApp.searchView',
   'myApp.navbar',
+  'myApp.loginView',
   'myApp.version'
 ])
 .config(['$routeProvider', function($routeProvider) {

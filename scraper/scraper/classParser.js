@@ -22,12 +22,17 @@ function parseCourseFromHTML (htmlBody) {
 // Gets the title from the class site
 function parseTitle ($) {
   var title = $('h3').text().trim();
+  // Remove the abbreviation
   title = title.replace(/(^[A-Z]{1,4}\s[0-9]{2,3})/, '');
+  // Remove credits
   title = title.replace(/\(([^\)]+)\)/i, '');
-  title = title.replace(/[^\w\s]/gi, '');
+  // Replace non-words/whitespace with whitespace
+  title = title.replace(/[^\w\s]/gi, ' ');
+  // Remove spaces, tabs, newlines
   title = title.replace(/\r?\n|\r|\t/g, '');
-  title = title.replace(/\ {2,}/g, '');
-  return title;
+  // Turn multiple spaces into just one, remove spaces on ends
+  title = title.replace(/\ {2,}/g, ' ');
+  return title.trim();
 }
 
 // Gets the abbreviation from the class site

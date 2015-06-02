@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node --harmony ./bin/www"
   },
   "dependencies": {
     "async": "^0.9.0",
@@ -16,6 +16,9 @@
     "less-middleware": "1.0.x",
     "morgan": "~1.5.1",
     "mysql": "^2.6.2",
+    "passport": "^0.2.2",
+    "passport-facebook": "^2.0.0",
+    "passport-local": "^1.0.0",
     "serve-favicon": "~2.2.0"
   }
 }
