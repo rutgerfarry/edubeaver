@@ -1,40 +1,41 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-.navbar-default {
-  background-color: white;
-  box-shadow: 0px -2px 8px 2px rgba(0, 0, 0, 0.05);
-}
-.navbar-default .form-control {
-  border: none;
-  box-shadow: none;
-}
-.navbar-default .btn-default {
-  border: none;
-}
-.navbar-default .navbar-brand {
-  border-right: 1px solid #DDD;
-}
-a {
-  color: #00B7FF;
-}
-ul {
-  column-count: 2;
-  list-style: none;
+  font: 14px 'Open Sans', Helvetica, Arial, sans-serif;
 }
 .title a {
   color: #444;
   list-style: none;
 }
 .title a b {
-  color: #00B7FF;
+  color: #380091;
 }
-#logo a {
-  color: #444;
+#home {
+  margin-top: -20px;
 }
-#logo a :hover,
-#logo a :focus {
-  text-decoration: none;
+#home-header {
+  background-image: radial-gradient(circle at top left, #ae01bb, #380091);
+  color: white;
+}
+#home-header .form-control {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  transition: none;
+  padding: 80px 0;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}
+#home-header .form-control::-webkit-input-placeholder {
+  color: white;
+}
+#home-header .form-control:-moz-placeholder {
+  color: white;
+}
+#home-header .form-control::-moz-placeholder {
+  color: white;
+}
+#home-header .form-control:-ms-input-placeholder {
+  color: white;
 }
 #footer {
   font-style: italic;
@@ -43,17 +44,29 @@ ul {
 #footer a {
   color: #aaa;
 }
-.home-search {
-  height: 48px;
+ul {
+  column-count: 2;
+  list-style: none;
 }
-.home-search img {
-  height: 100%;
+h1 {
+  color: #380091;
 }
 h3 {
-  color: #888;
+  color: #9B9B9B;
   font-weight: normal;
 }
 .table th,
 .table td {
   border-color: #EEE !important;
+}
+.progress {
+  background-color: transparent;
+  border: 2px solid #380091;
+  border-radius: 100px;
+  height: 24px;
+}
+.progress .progress-bar {
+  background-color: #380091;
+  border-radius: 100px;
+  box-shadow: none;
 }

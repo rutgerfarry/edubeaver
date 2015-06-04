@@ -6,17 +6,19 @@
   <div class="col-md-4 col-md-offset-4 panel panel-default">
   	<div class="panel-body">
   		<h1 class="text-center">Login / Signup</h1>
+  		<br>
   		<form>
-  			<div class="form-group">
-				<label for="email-input">Email</label>
-				<input type="email" class="form-control" id="email-input" placeholder="Email">
+  			<div ng-class="{'has-success': verified.email}" class="form-group has-feedback">
+				<input ng-model="userEmail" type="email" class="form-control" placeholder="Email">
+				<span ng-class="{hidden: !verified.email}" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
 			</div>
-			<div class="form-group">
-				<label for="password-input">Password</label>
-				<input type="password" class="form-control" id="password-input" placeholder="Password">
+			<div ng-class="{'has-success': verified.password}" class="form-group has-feedback">
+				<input ng-model="userPassword" type="password" class="form-control" placeholder="Password">
+				<span ng-class="{hidden: !verified.password}" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
 			</div>
-			<button type="submit" class="btn btn-default btn-block"><b>Login / Signup</b></button>
-			<button type="submit" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i></button>
+			<button ng-click="loginOrSignup()" type="submit" class="btn btn-default btn-block">
+				<b>Login / Signup</b>
+			</button>
   		</form>
   	</div>
   </div>

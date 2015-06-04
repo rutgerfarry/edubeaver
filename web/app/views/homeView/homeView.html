@@ -2,22 +2,14 @@
   <div rf-navbar></div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" id="home">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <br>
-      <br>
-      <h1 class="text-center">classmere</h1>
-      <h4 class="text-center">Get the classes you need and find courses that interest you at Oregon State University</h4>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 input-group">
-      <input type="text" ng-model="searchTerm" class="form-control home-search" placeholder="Search">
-      <span ng-click="search()" class="input-group-addon home-search">
-        <img src="assets/img/search_icon.png" class="home-search">
-      </span>
+    <div class="col-md-12" id="home-header">
+      <div class="col-md-6 col-md-offset-3 input-group">
+        <div class="form-group">
+          <input ng-model="searchTerm" type="text" class="form-control" placeholder="Search for classes...">
+        </div>
+      </div>
     </div>
   </div>
   <br>

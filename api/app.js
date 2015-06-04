@@ -5,9 +5,7 @@ const
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
-  cors = require('cors'),
-  passport = require('passport'),
-  LocalStrategy = require('passport-local').strategy;
+  cors = require('cors');
 
 const
   courses = require('./routes/courses'),
@@ -15,15 +13,6 @@ const
   users = require('./routes/users');
 
 var app = express();
-
-var auth = function(req, res, next) {
-  if (!req.isAuthenticated()) {
-    res.send(401);
-  }
-  else {
-    next();
-  }
-};
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -47,7 +36,7 @@ app.use(cors());
 
 app.use('/courses', courses);
 app.use('/search', search);
-app.use('/users', auth, users);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
