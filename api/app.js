@@ -1,16 +1,15 @@
-const
-  express = require('express'),
-  path = require('path'),
-  favicon = require('serve-favicon'),
-  logger = require('morgan'),
-  cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),
-  cors = require('cors');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const
-  courses = require('./routes/courses'),
-  search = require('./routes/search'),
-  users = require('./routes/users');
+
+const courses = require('./routes/courses');
+const search = require('./routes/search');
+const users = require('./routes/users');
 
 var app = express();
 
@@ -26,14 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Allow cross-origin resource sharing
 app.use(cors());
 
-// Setup passport authentication
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     // bullshitssssssssssssssssssssssssssss
-//   }
-// ));
-// app.use(passport.initialize());
-
 app.use('/courses', courses);
 app.use('/search', search);
 app.use('/users', users);
@@ -43,30 +34,6 @@ app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
 });
 
 

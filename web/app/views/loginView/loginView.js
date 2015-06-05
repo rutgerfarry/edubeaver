@@ -48,6 +48,10 @@ angular.module('myApp.loginView', ['ngRoute', 'ngResource'])
       var User = $resource('http://192.168.59.103:3000/users/login');
       var user = User.save({ email: $scope.email,
                              password: $scope.password
+      }, function () {
+        $location.path('/');
+      }, function () {
+        $location.path('/login');
       });
     }
   };
