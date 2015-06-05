@@ -18,7 +18,23 @@ scraper:
     working_dir: /src/scraper
     stdin_open: true
     tty: true
+mysql:
+    image: mysql
+    volumes_from: 
+        - volume
+        - src
+    working_dir: /src/mysql
+    stdin_open: true
+    tty: true
+    environment: 
+        MYSQL_ROOT_PASSWORD: root
+volume:
+    image: mysql
+    volumes: 
+        - /var/lib/mysql/
+    expose: 
+        - "3306"
 src:
     image: ubuntu
     volumes: 
-        - ./:/src
+        - /Users/Rutger/Dropbox/Projects/edubeaver:/src

@@ -15,27 +15,40 @@ angular.module('myApp.loginView', ['ngRoute', 'ngResource'])
   $scope.verified = {};
   $scope.verified.email = false;
   $scope.verified.password = false;
-  $scope.userEmail = '';
-  $scope.userPassword = '';
+  $scope.firstName = '';
+  $scope.lastName = '';
+  $scope.email = '';
+  $scope.password = '';
+  // Determines whether to show login or sign-up view
+  $scope.login = true;
 
   var emailRegex = /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/igm;
-  $scope.$watch('userEmail', function () {
-    var email = String($scope.userEmail);
+  $scope.$watch('email', function () {
+    var email = String($scope.email);
     $scope.verified.email = email.match(emailRegex) ? true : false;
   });
-  $scope.$watch('userPassword', function () {
-    var password = String($scope.userPassword);
+  $scope.$watch('password', function () {
+    var password = String($scope.password);
     $scope.verified.password = password.length > 5 ? true : false;
   });
 
-  $scope.loginOrSignup = function() {
+  $scope.signup = function() {
     if ($scope.verified.email && $scope.verified.password) {
-
-      var User = $resource('http://192.168.59.103:3000/users',
-        { email: $scope.userEmail, password: $scope.userPassword }, 
-        { create: { method: 'POST' }
+      var User = $resource('http://192.168.59.103:3000/users/signup');
+      var user = User.save({ first_name: $scope.firstName,
+                             last_name: $scope.lastName,
+                             email: $scope.email, 
+                             password: $scope.password 
       });
-      var user = User.save({ email: $scope.userEmail, password: $scope.userPassword });
+    }
+  };
+
+  $scope.login = function() {
+    if ($scope.verified.email && $scope.verified.password) {
+      var User = $resource('http://192.168.59.103:3000/users/login');
+      var user = User.save({ email: $scope.email,
+                             password: $scope.password
+      });
     }
   };
 }]);
