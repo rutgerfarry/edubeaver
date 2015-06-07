@@ -9,7 +9,6 @@ const cors = require('cors');
 
 const courses = require('./routes/courses');
 const search = require('./routes/search');
-const users = require('./routes/users');
 
 var app = express();
 
@@ -27,7 +26,7 @@ app.use(cors());
 
 app.use('/courses', courses);
 app.use('/search', search);
-app.use('/users', users);
+//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

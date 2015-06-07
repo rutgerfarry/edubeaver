@@ -2,15 +2,8 @@
 
 angular.module('myApp.loginView', ['ngRoute', 'ngResource'])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/login', {
-    templateUrl: 'views/loginView/loginView.html',
-    controller: 'loginViewCtrl'
-  });
-}])
-
-.controller('loginViewCtrl', ['$scope', '$resource', '$location',
-  function($scope, $resource, $location) {
+.controller('loginViewCtrl', ['$scope', '$resource', '$location', 'apiServer',
+  function($scope, $resource, $location, apiServer) {
 
   $scope.verified = {};
   $scope.verified.email = false;
@@ -34,7 +27,7 @@ angular.module('myApp.loginView', ['ngRoute', 'ngResource'])
 
   $scope.signup = function() {
     if ($scope.verified.email && $scope.verified.password) {
-      var User = $resource('http://192.168.59.103:3000/users/signup');
+      var User = $resource(apiServer + '/users/signup');
       var user = User.save({ first_name: $scope.firstName,
                              last_name: $scope.lastName,
                              email: $scope.email, 
@@ -45,7 +38,7 @@ angular.module('myApp.loginView', ['ngRoute', 'ngResource'])
 
   $scope.login = function() {
     if ($scope.verified.email && $scope.verified.password) {
-      var User = $resource('http://192.168.59.103:3000/users/login');
+      var User = $resource(apiServer + '/users/login');
       var user = User.save({ email: $scope.email,
                              password: $scope.password
       }, function () {
