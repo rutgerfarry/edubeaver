@@ -1,6 +1,5 @@
-const
-  mysql = require('mysql'),
-  async = require('async');
+const mysql = require('mysql');
+const async = require('async');
 
 
 exports.connect      = connect;

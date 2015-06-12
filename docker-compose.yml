@@ -9,6 +9,10 @@ api:
     working_dir: /src/api
     stdin_open: true
     tty: true
+web:
+    image: nginx:1.9
+    ports: 
+    - "80:80"
 scraper:
     image: node:0.12
     links: 
