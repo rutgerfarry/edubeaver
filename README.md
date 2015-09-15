@@ -1,4 +1,6 @@
-# edubeaver
+# edubeaver (now [classmere](https://github.com/classmere))
+**This edubeaver repo has moved to the  [classmere organization](https://github.com/classmere)**
+
 An in-progress course finder for OSU Students written in Node / Angular.
 
 ## API Reference (In beta)
